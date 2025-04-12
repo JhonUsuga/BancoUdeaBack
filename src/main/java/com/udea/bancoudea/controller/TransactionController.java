@@ -5,6 +5,7 @@ import com.udea.bancoudea.service.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,6 +20,7 @@ public class TransactionController {
     //para realizar una transferencia
     @PostMapping("/transfer")
     public ResponseEntity<TransactionDTO> transferMoney(@RequestBody TransactionDTO transactionDTO) {
+        transactionDTO.setTimestamp(LocalDateTime.now()); // <-- AGREGAR ESTO AQUÍ
         TransactionDTO transaction = transactionService.transferMoney(transactionDTO);
         return ResponseEntity.ok(transaction);
     }
